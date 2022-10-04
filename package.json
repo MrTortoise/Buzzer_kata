@@ -10,7 +10,8 @@
     "compile": "npx swc ./src -d dist",
     "cw": "yarn compile -w",
     "test": "jest",
-    "tw": "jest --watchAll --silent=false"
+    "tw": "jest --watchAll --silent=false",
+    "start": "yarn compile && node dist/index.js"
   },
   "dependencies": {
     "uuid": "^9.0.0"
@@ -18,6 +19,7 @@
   "devDependencies": {
     "@swc/cli": "^0.1.57",
     "@swc/core": "^1.3.4",
+    "@swc/helpers": "^0.4.11",
     "@swc/jest": "^0.2.23",
     "@types/jest": "^29.1.1",
     "@typescript-eslint/eslint-plugin": "^5.38.1",

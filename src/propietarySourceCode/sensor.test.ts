@@ -1,9 +1,17 @@
 import { setTimeout } from "timers/promises"
-import { Sensor } from "./app"
+import { Bus } from "./bus"
+
 import { IApply } from "./IApply"
-import { StartSensorCommand, TemperatureMeasured } from "./sensor"
+import { Sensor, SensorStopped, StartSensorCommand, TemperatureMeasured } from "./sensor"
 
+class StoppedEventHandler implements IApply<SensorStopped>{
+  stopped = false
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  apply(_event: SensorStopped): void {
+    this.stopped = true
+  }
 
+}
 class MockEventHandler implements IApply<TemperatureMeasured>{
   temps: number[] = []
   apply(event: TemperatureMeasured): void {
@@ -13,18 +21,20 @@ class MockEventHandler implements IApply<TemperatureMeasured>{
 }
 describe("the sensor", () => {
   it('will count up and then down', async () => {
+    const bus = new Bus()
     const sut = new Sensor()
+    sut.registerBus(bus)
     const mock = new MockEventHandler()
-    await sut.handle(new StartSensorCommand(mock))
+    const stoppedMock = new StoppedEventHandler()
+    bus.subscribe("SensorStopped", stoppedMock)
+    bus.subscribe("TemperatureMeasured", mock)
 
     const check = async () => {
-      let stopped = sut.isStopped
-      while (!stopped) {
-        await setTimeout(10);
-        stopped = sut.isStopped
+      while (!stoppedMock.stopped) {
+        await setTimeout(50);
       }
     }
-
+    await sut.handle(new StartSensorCommand(mock))
     await check()
     expect(mock.temps.length).toEqual(200)
   })

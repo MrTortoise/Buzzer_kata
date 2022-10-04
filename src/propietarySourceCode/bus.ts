@@ -21,7 +21,9 @@ export class Bus implements IApply<DomainEvent>{
 
   apply(event: DomainEvent) {
     const values = this.subscriptions[event.eventType]
-    values.forEach(s => s.apply(event))
+    if (values != undefined) {
+      values.forEach(s => s.apply(event))
+    }
   }
 
   subscribe(eventType: string, instance: IApply<DomainEvent>) {
