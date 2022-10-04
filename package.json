@@ -1,5 +1,5 @@
 {
-  "name": "Buzzer_kata",
+  "name": "buzzerkata",
   "version": "1.0.0",
   "main": "index.js",
   "repository": "git@github.com:MrTortoise/Buzzer_kata.git",
@@ -12,7 +12,9 @@
     "test": "jest",
     "tw": "jest --watchAll --silent=false"
   },
-  "dependencies": {},
+  "dependencies": {
+    "uuid": "^9.0.0"
+  },
   "devDependencies": {
     "@swc/cli": "^0.1.57",
     "@swc/core": "^1.3.4",
