@@ -23,7 +23,7 @@ export class App implements IApply<SensorStopped> {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  apply(_event: SensorStopped): void {
+  async apply(_event: SensorStopped): Promise<void> {
     this.running = false
   }
 

@@ -7,14 +7,14 @@ import { Sensor, SensorStopped, StartSensorCommand, TemperatureMeasured } from "
 class StoppedEventHandler implements IApply<SensorStopped>{
   stopped = false
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  apply(_event: SensorStopped): void {
+  async apply(_event: SensorStopped): Promise<void> {
     this.stopped = true
   }
 
 }
 class MockEventHandler implements IApply<TemperatureMeasured>{
   temps: number[] = []
-  apply(event: TemperatureMeasured): void {
+  async apply(event: TemperatureMeasured): Promise<void> {
     this.temps.push(event.temperature)
   }
 

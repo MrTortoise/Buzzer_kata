@@ -5,7 +5,7 @@ import { TemperatureMeasured } from "./sensor"
 class MockEventApplicator implements IApply<TemperatureMeasured>{
   lastEvent: TemperatureMeasured
 
-  apply(event: TemperatureMeasured) {
+  async apply(event: TemperatureMeasured): Promise<void> {
     this.lastEvent = event
   }
 }

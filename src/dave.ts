@@ -10,7 +10,7 @@ Dave had a job, now he does not.
 Daves only job was to take temperatures and apply force to the appropiate button
 */
 export class Dave implements IApply<TemperatureMeasured>{
-  apply(event: TemperatureMeasured) {
+  async apply(event: TemperatureMeasured): Promise<void> {
     console.log(event.temperature)
   }
 

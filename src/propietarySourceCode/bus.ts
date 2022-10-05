@@ -19,7 +19,7 @@ export class Bus implements IApply<DomainEvent>{
     }
   }
 
-  apply(event: DomainEvent) {
+  async apply(event: DomainEvent): Promise<void> {
     const values = this.subscriptions[event.eventType]
     if (values != undefined) {
       values.forEach(s => s.apply(event))
