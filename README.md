@@ -14,4 +14,6 @@ Like with all code you get given and things you get asked to do you may notice t
 The only files you can change are index.ts and dave.ts
 of course you are welcome to create tests
 
+you own the buzzer - but not the console it is outputting to. Imagine its a console of a spaceship or something.
+
 
