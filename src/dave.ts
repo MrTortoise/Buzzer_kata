@@ -17,19 +17,15 @@ Daves only job was to take temperatures and apply force to the appropiate button
 */
 export class Dave implements IApply<TemperatureMeasured>{
   async apply(event: TemperatureMeasured): Promise<void> {
-    const buzzer = new BorkedBuzzer()
+    const buzzer = new Buzzer()
     if (event.temperature >= 80) {
       buzzer.start()
     }
   }
 }
 
-
-export class BorkedBuzzer {
-  state = 4
+export class Buzzer {
   start(): void {
-    if (this.state % 3 === 0) throw new Error('Fault')
-    this.state = this.state + 1
     buzzerCli("Start Buzzer")
   }
 }
