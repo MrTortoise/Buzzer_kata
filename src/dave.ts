@@ -1,5 +1,6 @@
 import { IApply } from "./propietarySourceCode/IApply";
 import { TemperatureMeasured } from "./propietarySourceCode/sensor";
+import { buzzerCli } from "./propietarySourceCode/magicalConsoleOfPower";
 
 
 
@@ -16,7 +17,7 @@ Daves only job was to take temperatures and apply force to the appropiate button
 */
 export class Dave implements IApply<TemperatureMeasured>{
   async apply(event: TemperatureMeasured): Promise<void> {
-    const buzzer = new Buzzer()
+    const buzzer = new BorkedBuzzer()
     if (event.temperature >= 80) {
       buzzer.start()
     }
@@ -24,8 +25,11 @@ export class Dave implements IApply<TemperatureMeasured>{
 }
 
 
-export class Buzzer {
+export class BorkedBuzzer {
+  state = 4
   start(): void {
-    console.log("BUZZ BUZZ ZZZZ No Bees Harmed Buzzz")
+    if (this.state % 3 === 0) throw new Error('Fault')
+    this.state = this.state + 1
+    buzzerCli("Start Buzzer")
   }
 }
